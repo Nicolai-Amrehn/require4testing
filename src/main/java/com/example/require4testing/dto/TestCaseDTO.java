@@ -6,10 +6,9 @@ import com.example.require4testing.model.TestStatus;
 
 import java.time.LocalDateTime;
 
-public record TestcaseDTO(
+public record TestCaseDTO(
         long id,
         Requirement requirement,
-        String tester,
         String title,
         String description,
         TestStatus testStatus,

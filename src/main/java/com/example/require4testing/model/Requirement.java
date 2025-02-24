@@ -18,7 +18,7 @@ public class Requirement {
     private String priority;
     private String status;
     @OneToMany(mappedBy = "requirement", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Testcase> testcaseSet;
+    private List<TestCase> testCases;
     @CreationTimestamp
     private LocalDateTime created_at;
     @UpdateTimestamp

@@ -5,16 +5,18 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-public class Testcase {
+public class TestCase {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="requirement_id")
     private Requirement requirement;
-    private String tester;
+    @OneToMany(mappedBy = "testcase", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TestStep> testSteps;
     private String title;
     private String description;
     private TestStatus testStatus;
@@ -24,14 +26,13 @@ public class Testcase {
     @UpdateTimestamp
     private LocalDateTime updated_at;
 
-    public Testcase() {
+    public TestCase() {
     }
 
-    public Testcase(long id, Requirement requirement, String tester, String title, String description,
+    public TestCase(long id, Requirement requirement, String tester, String title, String description,
                     TestStatus testStatus, TestResult testResult, LocalDateTime created_at, LocalDateTime updated_at) {
         this.id = id;
         this.requirement = requirement;
-        this.tester = tester;
         this.title = title;
         this.description = description;
         this.testStatus = testStatus;
@@ -56,13 +57,6 @@ public class Testcase {
         this.requirement = requirement;
     }
 
-    public String getTester() {
-        return tester;
-    }
-
-    public void setTester(String tester) {
-        this.tester = tester;
-    }
 
     public String getTitle() {
         return title;
