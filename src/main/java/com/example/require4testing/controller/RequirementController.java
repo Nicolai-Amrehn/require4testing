@@ -19,9 +19,7 @@ public class RequirementController {
     }
 
     @GetMapping("/requirements")
-
-
-public String requirements(Model model) {
+    public String requirements(Model model) {
         List<RequirementDTO> requirements = requirementService.findAllRequirements();
         model.addAttribute("requirements", requirements);
         model.addAttribute("requirement", new RequirementDTO(null, "", "", null, null));

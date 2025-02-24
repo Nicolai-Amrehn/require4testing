@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Testcase CRUD</title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="container mt-4">
+  <h2 class="mb-4">Testcase Management</h2>
+
+  <form th:action="@{/testcase/add}" th:object="${testcase}" method="post" class="mb-4">
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" th:field="*{title}" placeholder="Title" required>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" th:field="*{description}" placeholder="Description" required>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Add Testcase</button>
+      </div>
+    </div>
+  </form>
+
+  <input class="form-control mb-3" id="searchInput" type="text" placeholder="Search...">
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+    <tr>
+      <th onclick="sortTable(0)">ID</th>
+      <th onclick="sortTable(1)">Title</th>
+      <th onclick="sortTable(2)">Description</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody id="testcaseTable">
+    <tr th:each="testcase : ${testcases}">
+      <td th:text="${testcase.id}"></td>
+      <td th:text="${testcase.title}"></td>
+      <td th:text="${testcase.description}"></td>
+      <td>
+        <a th:href="@{/testcases/edit/{id}(id=${testcase.id})}" class="btn btn-warning btn-sm">Edit</a>
+        <a th:href="@{/testcases/delete/{id}(id=${testcase.id})}" class="btn btn-danger btn-sm">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  function sortTable(columnIndex) {
+    let table = document.querySelector("table tbody");
+    let rows = Array.from(table.rows);
+
+    rows.sort((a, b) => {
+      let cellA = a.cells[columnIndex].textContent.trim();
+      let cellB = b.cells[columnIndex].textContent.trim();
+      return cellA.localeCompare(cellB);
+    });
+
+    rows.forEach(row => table.appendChild(row));
+  }
+
+  document.getElementById("searchInput").addEventListener("keyup", function () {
+    let filter = this.value.toLowerCase();
+    let rows = document.querySelectorAll("#testcaseTable tr");
+
+    rows.forEach(row => {
+      let text = row.textContent.toLowerCase();
+      row.style.display = text.includes(filter) ? "" : "none";
+    });
+  });
+</script>
+</body>
+</html>
