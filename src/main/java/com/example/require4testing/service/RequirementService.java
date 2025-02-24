@@ -23,9 +23,17 @@ public class RequirementService {
         return requirements.stream().map(requirement -> new RequirementDTO(
                 requirement.getId(),
                 requirement.getTitle(),
+                requirement.getProject(),
                 requirement.getDescription(),
+                requirement.getPriority(),
+                requirement.getStatus(),
                 requirement.getCreated_at(),
                 requirement.getUpdated_at()
         )).collect(Collectors.toList());
     }
+
+    public Requirement createRequirement(Requirement requirement) {
+        return requirementRepository.save(requirement);
+    }
+
 }
