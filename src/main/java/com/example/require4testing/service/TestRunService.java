@@ -28,4 +28,8 @@ public class TestRunService {
                 testRun.getUpdated_at()
         )).collect(Collectors.toList());
     }
+
+    public TestRun createTestRun(TestRun testRun) {
+        return testRunRepository.save(testRun);
+    }
 }

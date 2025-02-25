@@ -31,4 +31,6 @@ public class TestCaseService {
                 testcase.getUpdated_at()
         )).collect(Collectors.toList());
     }
+
+    public TestCase createTestCase(TestCase testCase) {return testcaseRepository.save(testCase);}
 }

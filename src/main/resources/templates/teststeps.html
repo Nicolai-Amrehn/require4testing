@@ -8,62 +8,103 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Require4Testing</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/requirements">Requirements</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/testcases">Testcases</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/testruns">Testruns</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/teststeps">Teststeps</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <div class="container mt-4">
   <h2 class="mb-4">Teststep Management</h2>
 
-  <form th:action="@{/testStep/add}" th:object="${testStep}" method="post" class="mb-4">
-    <div class="row">
-      <div class="col">
-        <input type="text" class="form-control" th:field="*{title}" placeholder="Title" required>
-      </div>
-      <div class="col">
-        <input type="text" class="form-control" th:field="*{description}" placeholder="Description" required>
-      </div>
-      <div class="col-auto">
-        <button type="submit" class="btn btn-primary">Add Teststep</button>
-      </div>
-    </div>
-  </form>
 
+  <!-- Search Input -->
   <input class="form-control mb-3" id="searchInput" type="text" placeholder="Search...">
 
+  <!-- Teststeps Table -->
   <table class="table table-bordered table-striped">
     <thead class="table-dark">
     <tr>
-      <th onclick="sortTable(0)">ID</th>
-      <th onclick="sortTable(1)">Title</th>
-      <th onclick="sortTable(2)">Description</th>
+      <th>ID</th>
+      <th>Testcase</th>
+      <th>Step</th>
+      <th>Title</th>
+      <th>Description</th>
       <th>Actions</th>
     </tr>
     </thead>
     <tbody id="teststepTable">
-    <tr th:each="testStep : ${testSteps}">
-      <td th:text="${testStep.id}"></td>
-      <td th:text="${testStep.title}"></td>
-      <td th:text="${testStep.description}"></td>
+    <tr th:each="teststep : ${teststeps}">
+      <td th:text="${teststep.id}"></td>
+      <td th:text="${teststep.testcase.title}"></td> <!-- Assuming Testcase has a 'title' field -->
+      <td th:text="${teststep.step}"></td>
+      <td th:text="${teststep.title}"></td>
+      <td th:text="${teststep.description}"></td>
       <td>
-        <a th:href="@{/testSteps/edit/{id}(id=${testStep.id})}" class="btn btn-warning btn-sm">Edit</a>
-        <a th:href="@{/testSteps/delete/{id}(id=${testStep.id})}" class="btn btn-danger btn-sm">Delete</a>
+        <a th:href="@{/teststeps/edit/{id}(id=${teststep.id})}" class="btn btn-warning btn-sm">Edit</a>
+        <a th:href="@{/teststeps/delete/{id}(id=${teststep.id})}" class="btn btn-danger btn-sm">Delete</a>
       </td>
     </tr>
     </tbody>
   </table>
 </div>
+<!-- Add Teststep Form -->
+<div class="container">
+  <form role="form" th:action="@{/teststeps/add}" th:object="${teststep}" method="post" class="mb-4">
+    <legend>Add New Teststep</legend>
 
+    <!-- Testcase Dropdown -->
+    <div class="mb-3">
+      <label for="testcase" class="form-label">Testcase</label>
+      <select class="form-control" id="testcase" th:field="*{testcase}" required>
+        <option value="">Select a Testcase</option>
+        <option th:each="tc : ${testcases}" th:value="${tc.id}" th:text="${tc.title}"></option>
+      </select>
+    </div>
+
+    <!-- Step Field -->
+    <div class="mb-3">
+      <label for="step" class="form-label">Step</label>
+      <input type="number" class="form-control" id="step" th:field="*{step}" placeholder="Step" required>
+    </div>
+
+    <!-- Title Field -->
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="Title" required>
+    </div>
+
+    <!-- Description Field -->
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <input type="text" class="form-control" id="description" th:field="*{description}" placeholder="Description" required>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Add Teststep</button>
+  </form>
+</div>
+
+<!-- Scripts for Sorting and Searching -->
 <script>
-  function sortTable(columnIndex) {
-    let table = document.querySelector("table tbody");
-    let rows = Array.from(table.rows);
-
-    rows.sort((a, b) => {
-      let cellA = a.cells[columnIndex].textContent.trim();
-      let cellB = b.cells[columnIndex].textContent.trim();
-      return cellA.localeCompare(cellB);
-    });
-
-    rows.forEach(row => table.appendChild(row));
-  }
-
   document.getElementById("searchInput").addEventListener("keyup", function () {
     let filter = this.value.toLowerCase();
     let rows = document.querySelectorAll("#teststepTable tr");

@@ -28,4 +28,8 @@ public class TestStepService {
                 testStep.getDescription()
         )).collect(Collectors.toList());
     }
+
+    public TestStep createTestStep(TestStep testStep) {
+        return teststepRepository.save(testStep);
+    }
 }

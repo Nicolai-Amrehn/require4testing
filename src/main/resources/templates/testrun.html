@@ -8,31 +8,47 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Require4Testing</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/requirements">Requirements</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/testcases">Test Cases</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/testruns">Test Runs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/teststeps">Test Steps</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <div class="container mt-4">
   <h2 class="mb-4">Testrun Management</h2>
 
-  <form th:action="@{/testrun/add}" th:object="${testrun}" method="post" class="mb-4">
-    <div class="row">
-      <div class="col">
-        <input type="text" class="form-control" th:field="*{title}" placeholder="Title" required>
-      </div>
-      <div class="col">
-        <input type="text" class="form-control" th:field="*{description}" placeholder="Description" required>
-      </div>
-      <div class="col-auto">
-        <button type="submit" class="btn btn-primary">Add Testrun</button>
-      </div>
-    </div>
-  </form>
-
+  <!-- Search Input -->
   <input class="form-control mb-3" id="searchInput" type="text" placeholder="Search...">
 
+  <!-- Testruns Table -->
   <table class="table table-bordered table-striped">
     <thead class="table-dark">
     <tr>
-      <th onclick="sortTable(0)">ID</th>
-      <th onclick="sortTable(1)">Title</th>
-      <th onclick="sortTable(2)">Description</th>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Test Cases</th>
+      <th>Tester</th>
+      <th>Created At</th>
+      <th>Updated At</th>
       <th>Actions</th>
     </tr>
     </thead>
@@ -41,6 +57,10 @@
       <td th:text="${testrun.id}"></td>
       <td th:text="${testrun.title}"></td>
       <td th:text="${testrun.description}"></td>
+      <td th:text="${testrun.testCases}"></td>
+      <td th:text="${testrun.tester}"></td>
+      <td th:text="${testrun.createdAt}"></td>
+      <td th:text="${testrun.updatedAt}"></td>
       <td>
         <a th:href="@{/testruns/edit/{id}(id=${testrun.id})}" class="btn btn-warning btn-sm">Edit</a>
         <a th:href="@{/testruns/delete/{id}(id=${testrun.id})}" class="btn btn-danger btn-sm">Delete</a>
@@ -48,22 +68,43 @@
     </tr>
     </tbody>
   </table>
-</div>
 
+  <!-- Add Testrun Form -->
+  <div class="container">
+    <form role="form" th:action="@{/testruns/add}" th:object="${testrun}" method="post" class="mb-4">
+      <legend>Add New Test Run</legend>
+
+      <!-- Title Field -->
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="Title" required>
+      </div>
+
+      <!-- Description Field -->
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" th:field="*{description}" placeholder="Description" required>
+      </div>
+
+      <!-- Test Cases Field -->
+      <div class="mb-3">
+        <label for="testCases" class="form-label">Test Cases</label>
+        <input type="text" class="form-control" id="testCases" th:field="*{testCases}" placeholder="Test Cases" required>
+      </div>
+
+      <!-- Tester Field -->
+      <div class="mb-3">
+        <label for="tester" class="form-label">Tester</label>
+        <input type="text" class="form-control" id="tester" th:field="*{tester}" placeholder="Tester" required>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary">Add Test Run</button>
+    </form>
+  </div>
+
+<!-- Scripts for Sorting and Searching -->
 <script>
-  function sortTable(columnIndex) {
-    let table = document.querySelector("table tbody");
-    let rows = Array.from(table.rows);
-
-    rows.sort((a, b) => {
-      let cellA = a.cells[columnIndex].textContent.trim();
-      let cellB = b.cells[columnIndex].textContent.trim();
-      return cellA.localeCompare(cellB);
-    });
-
-    rows.forEach(row => table.appendChild(row));
-  }
-
   document.getElementById("searchInput").addEventListener("keyup", function () {
     let filter = this.value.toLowerCase();
     let rows = document.querySelectorAll("#testrunTable tr");

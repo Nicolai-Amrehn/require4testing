@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -25,5 +27,11 @@ public class TestRunController {
         model.addAttribute("testruns", testRuns);
         model.addAttribute("testrun", new TestRun());
         return "testrun";
+    }
+
+    @PostMapping("/testruns/add")
+    public String addTestRun(@ModelAttribute TestRun testRun, Model model) {
+        testRunService.createTestRun(testRun);
+        return "redirect:/testruns";
     }
 }
