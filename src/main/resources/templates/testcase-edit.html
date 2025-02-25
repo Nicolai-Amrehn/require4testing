@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
-  <form role="form" th:action="@{/testcases/edit/{id}(id=${testCase.id})}" th:object="${testCase}" method="put" class="mb-4">
+  <form role="form" th:action="@{/testcases/edit/{id}(id=${testCase.id})}" th:object="${testCase}" method="post" class="mb-4">
     <legend>Update Test Case</legend>
     <input type="hidden" th:field="*{id}">
     <div class="mb-3">

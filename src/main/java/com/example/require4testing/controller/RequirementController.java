@@ -25,10 +25,14 @@ public class RequirementController {
     public String requirements(Model model) {
         List<RequirementDTO> requirements = requirementService.findAllRequirements();
         model.addAttribute("requirements", requirements);
-        model.addAttribute("requirement", new Requirement());
         return "requirements";
     }
 
+    @GetMapping("/requirements/add")
+    public String addRequirement(Model model) {
+        model.addAttribute("requirement", new Requirement());
+        return "requirements-add";
+    }
     @PostMapping("/requirements/add")
     public String createRequirement(@ModelAttribute("requirement") Requirement requirement) {
     requirementService.createRequirement(requirement);

@@ -35,7 +35,7 @@
 <div class="container mt-4">
   <h2 class="mb-4">Requirements Management</h2>
 
-
+  <a class="btn btn-primary mb-4" href="/requirements/add" role="button">Add New Requirement</a>
   <input class="form-control mb-3" id="searchInput" type="text" placeholder="Search...">
 
   <table class="table table-bordered table-striped">
@@ -66,38 +66,6 @@
   </table>
 </div>
 
-<div class="container">
-  <form role="form" th:action="@{/requirements/add}" th:object="${requirement}" method="post" class="mb-4">
-    <legend>Add New Requirement</legend>
-
-    <div class="mb-3">
-      <label for="title" class="form-label">Title</label>
-      <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="Title" required>
-    </div>
-
-    <div class="mb-3">
-      <label for="project" class="form-label">Project</label>
-      <input type="text" class="form-control" id="project" th:field="*{project}" placeholder="Project" required>
-    </div>
-
-    <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
-      <input type="text" class="form-control" id="description" th:field="*{description}" placeholder="Description" required>
-    </div>
-
-    <div class="mb-3">
-      <label for="priority" class="form-label">Priority</label>
-      <input type="text" class="form-control" id="priority" th:field="*{priority}" placeholder="Priority" required>
-    </div>
-
-    <div class="mb-3">
-      <label for="status" class="form-label">Status</label>
-      <input type="text" class="form-control" id="status" th:field="*{status}" placeholder="Status" required>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Add Requirement</button>
-  </form>
-</div>
 <script>
   document.getElementById("searchInput").addEventListener("keyup", function () {
     let filter = this.value.toLowerCase();

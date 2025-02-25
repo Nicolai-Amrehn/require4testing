@@ -56,7 +56,7 @@ public class TestCaseController {
         return "testcase-edit";
     }
 
-    @PutMapping("/testcases/edit/{id}")
+    @PostMapping("/testcases/edit/{id}")
     public String editTestCase(@ModelAttribute TestCase testCase) {
         testCaseService.updateTestCase(testCase);
         return "redirect:/testcases";
