@@ -35,10 +35,9 @@
 <div class="container mt-4">
   <h2 class="mb-4">Test Cases Management</h2>
 
-  <!-- Search Input -->
-  <input class="form-control mb-3" id="searchInput" type="text" placeholder="Search...">
+  <a class="btn btn-primary mb-4" href="/testcases/add" role="button">Add New Test Case</a>
 
-  <!-- Test Cases Table -->
+  <input class="form-control mb-3" id="searchInput" type="text" placeholder="Search...">
   <table class="table table-bordered table-striped">
     <thead class="table-dark">
     <tr>
@@ -72,44 +71,6 @@
   </table>
 </div>
 
-<div class="container">
-  <form role="form" th:action="@{/testcases/add}" th:object="${testcase}" method="post" class="mb-4">
-    <legend>Add New Test Case</legend>
-
-    <div class="mb-3">
-      <label for="requirement" class="form-label">Requirement</label>
-      <select class="form-control" id="requirement" th:field="*{requirement}" required>
-        <option th:each="req : ${requirements}" th:value="${req.id}" th:text="${req.title}"></option>
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <label for="title" class="form-label">Title</label>
-      <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="Title" required>
-    </div>
-
-    <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
-      <input type="text" class="form-control" id="description" th:field="*{description}" placeholder="Description" required>
-    </div>
-
-    <div class="mb-3">
-      <label for="testStatus" class="form-label">Status</label>
-      <select class="form-control" id="testStatus" th:field="*{testStatus}" required>
-        <option th:each="status : ${TestStatuses}" th:value="${status}" th:text="${status}"></option>
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <label for="testResult" class="form-label">Result</label>
-      <select class="form-control" id="testResult" th:field="*{testResult}" required>
-        <option th:each="result : ${TestResults}" th:value="${result}" th:text="${result}"></option>
-      </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Add Test Case</button>
-  </form>
-</div>
 <!-- Search Functionality -->
 <script>
   document.getElementById("searchInput").addEventListener("keyup", function () {

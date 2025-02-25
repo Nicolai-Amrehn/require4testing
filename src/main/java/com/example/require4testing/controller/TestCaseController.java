@@ -31,12 +31,17 @@ public class TestCaseController {
     public String testcase(Model model) {
         List<TestCaseDTO> testcases = testcaseService.findAllTestcases();
         model.addAttribute("testcases", testcases);
+        return "testcases";
+    }
+
+    @GetMapping("/testcases/add")
+    public String testcaseAdd(Model model) {
         List<RequirementDTO> requirements = requirementService.findAllRequirements();
         model.addAttribute("requirements", requirements);
+        model.addAttribute("testcase", new TestCase());
         model.addAttribute("TestStatuses", TestStatus.values());
         model.addAttribute("TestResults", TestResult.values());
-        model.addAttribute("testcase", new TestCase());
-        return "testcases";
+        return "testcases-add";
     }
 
     @PostMapping("/testcases/add")
@@ -53,7 +58,7 @@ public class TestCaseController {
         model.addAttribute("requirements", requirements);
         model.addAttribute("TestStatuses", TestStatus.values());
         model.addAttribute("TestResults", TestResult.values());
-        return "testcase-edit";
+        return "testcases-edit";
     }
 
     @PostMapping("/testcases/edit/{id}")
