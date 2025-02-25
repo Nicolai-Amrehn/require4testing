@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Testrun CRUD</title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div class="container mt-5">
+    <form role="form" th:action="@{/testruns/add}" th:object="${testrun}" method="post" class="mb-4">
+      <legend>Add New Test Run</legend>
+
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="Title" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" th:field="*{description}" placeholder="Description" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="testCases" class="form-label">Test Cases</label>
+        <input type="text" class="form-control" id="testCases" th:field="*{testCases}" placeholder="Test Cases" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="tester" class="form-label">Tester</label>
+        <input type="text" class="form-control" id="tester" th:field="*{tester}" placeholder="Tester" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Add Test Run</button>
+    </form>
+  </div>
+
+</body>
+</html>

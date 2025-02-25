@@ -35,10 +35,10 @@
 <div class="container mt-4">
   <h2 class="mb-4">Testrun Management</h2>
 
-  <!-- Search Input -->
+  <a class="btn btn-primary mb-4" role="button" href="/testruns/add">Add New Test Run</a>
+
   <input class="form-control mb-3" id="searchInput" type="text" placeholder="Search...">
 
-  <!-- Testruns Table -->
   <table class="table table-bordered table-striped">
     <thead class="table-dark">
     <tr>
@@ -69,41 +69,6 @@
     </tbody>
   </table>
 
-  <!-- Add Testrun Form -->
-  <div class="container">
-    <form role="form" th:action="@{/testruns/add}" th:object="${testrun}" method="post" class="mb-4">
-      <legend>Add New Test Run</legend>
-
-      <!-- Title Field -->
-      <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="Title" required>
-      </div>
-
-      <!-- Description Field -->
-      <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <input type="text" class="form-control" id="description" th:field="*{description}" placeholder="Description" required>
-      </div>
-
-      <!-- Test Cases Field -->
-      <div class="mb-3">
-        <label for="testCases" class="form-label">Test Cases</label>
-        <input type="text" class="form-control" id="testCases" th:field="*{testCases}" placeholder="Test Cases" required>
-      </div>
-
-      <!-- Tester Field -->
-      <div class="mb-3">
-        <label for="tester" class="form-label">Tester</label>
-        <input type="text" class="form-control" id="tester" th:field="*{tester}" placeholder="Tester" required>
-      </div>
-
-      <!-- Submit Button -->
-      <button type="submit" class="btn btn-primary">Add Test Run</button>
-    </form>
-  </div>
-
-<!-- Scripts for Sorting and Searching -->
 <script>
   document.getElementById("searchInput").addEventListener("keyup", function () {
     let filter = this.value.toLowerCase();

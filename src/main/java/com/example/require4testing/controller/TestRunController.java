@@ -25,10 +25,14 @@ public class TestRunController {
     public String testRun(Model model) {
         List<TestRunDTO> testRuns = testRunService.findAllTestRuns();
         model.addAttribute("testruns", testRuns);
-        model.addAttribute("testrun", new TestRun());
-        return "testrun";
+        return "testruns";
     }
 
+    @GetMapping("/testruns/add")
+    public String addTestRun(Model model) {
+        model.addAttribute("testrun", new TestRun());
+        return "testruns-add";
+    }
     @PostMapping("/testruns/add")
     public String addTestRun(@ModelAttribute TestRun testRun, Model model) {
         testRunService.createTestRun(testRun);
