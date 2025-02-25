@@ -38,4 +38,5 @@ public class TestCaseService {
 
     public TestCase updateTestCase(TestCase testCase) {return testcaseRepository.save(testCase);}
 
+    public void deleteTestCase(Long id) {testcaseRepository.deleteById(id);}
 }

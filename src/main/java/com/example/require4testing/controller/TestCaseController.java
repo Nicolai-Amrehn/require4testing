@@ -66,4 +66,10 @@ public class TestCaseController {
         testCaseService.updateTestCase(testCase);
         return "redirect:/testcases";
     }
+
+    @PostMapping("/testcases/delete/{id}")
+    public String deleteTestCase(@PathVariable Long id) {
+        testCaseService.deleteTestCase(id);
+        return "redirect:/testcases";
+    }
 }

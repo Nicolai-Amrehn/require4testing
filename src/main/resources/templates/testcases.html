@@ -64,14 +64,13 @@
       <td th:text="${testCase.updatedAt}"></td>
       <td>
         <a th:href="@{/testcases/edit/{id}(id=${testCase.id})}" class="btn btn-warning btn-sm">Edit</a>
-        <a th:href="@{/testcases/delete/{id}(id=${testCase.id})}" class="btn btn-danger btn-sm">Delete</a>
+        <button type="button" th:onclick="'deleteTestCase(' + ${testCase.id} + ')'" class="btn btn-danger btn-sm">Delete</button>
       </td>
     </tr>
     </tbody>
   </table>
 </div>
 
-<!-- Search Functionality -->
 <script>
   document.getElementById("searchInput").addEventListener("keyup", function () {
     let filter = this.value.toLowerCase();
@@ -82,6 +81,27 @@
       row.style.display = text.includes(filter) ? "" : "none";
     });
   });
+
+    function deleteTestCase(id) {
+    if (confirm("Are you sure you want to delete this test case? This will delete connected Test Steps!")) {
+    fetch(`/testcases/delete/${id}`, {
+    method: 'POST',
+    headers: {
+    'Content-Type': 'application/json',
+  },
+  })
+    .then(response => {
+    if (response.ok) {
+    window.location.reload();
+  } else {
+    alert("Failed to delete the test case.");
+  }
+  })
+    .catch(error => {
+    console.error("Error:", error);
+  });
+  }
+  }
 </script>
 </body>
 </html>
