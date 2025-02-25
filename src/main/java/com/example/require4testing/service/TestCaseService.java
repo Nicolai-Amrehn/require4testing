@@ -33,4 +33,9 @@ public class TestCaseService {
     }
 
     public TestCase createTestCase(TestCase testCase) {return testcaseRepository.save(testCase);}
+
+    public TestCase findTestCaseById(Long id) {return testcaseRepository.findById(id).orElse(null);}
+
+    public TestCase updateTestCase(TestCase testCase) {return testcaseRepository.save(testCase);}
+
 }

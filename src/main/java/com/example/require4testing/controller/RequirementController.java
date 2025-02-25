@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -26,7 +25,7 @@ public class RequirementController {
     public String requirements(Model model) {
         List<RequirementDTO> requirements = requirementService.findAllRequirements();
         model.addAttribute("requirements", requirements);
-        model.addAttribute("requirement", new RequirementDTO(null, "", "", "", "", "", LocalDateTime.now(), null));
+        model.addAttribute("requirement", new Requirement());
         return "requirements";
     }
 

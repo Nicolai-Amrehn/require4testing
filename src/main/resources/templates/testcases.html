@@ -56,7 +56,7 @@
     <tbody id="testCaseTable">
     <tr th:each="testCase : ${testcases}">
       <td th:text="${testCase.id}"></td>
-      <td th:text="${testCase.requirement.title}"></td> <!-- Assuming Requirement has a 'title' field -->
+      <td th:text="${testCase.requirement.title}"></td>
       <td th:text="${testCase.title}"></td>
       <td th:text="${testCase.description}"></td>
       <td th:text="${testCase.testStatus}"></td>
