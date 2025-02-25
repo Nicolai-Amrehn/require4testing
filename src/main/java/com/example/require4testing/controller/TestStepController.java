@@ -29,10 +29,15 @@ public class TestStepController {
     public String teststeps(Model model) {
         List<TestStepDTO> teststeps = teststepService.findAllTeststeps();
         model.addAttribute("teststeps", teststeps);
+        return "teststeps";
+    }
+
+    @GetMapping("/teststeps/add")
+    public String addTestStep(Model model) {
         List<TestCaseDTO> testcases = testCaseService.findAllTestcases();
         model.addAttribute("testcases", testcases);
         model.addAttribute("teststep", new TestStep());
-        return "teststeps";
+        return "teststeps-add";
     }
 
     @PostMapping("/teststeps/add")

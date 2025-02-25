@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Teststep CRUD</title>
+  <title>Test Step Management</title>
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -33,13 +33,12 @@
   </div>
 </nav>
 <div class="container mt-4">
-  <h2 class="mb-4">Teststep Management</h2>
+  <h2 class="mb-4">Test Step Management</h2>
 
+  <a class="btn btn-primary mb-4" role="button" href="/teststeps/add">Add New Test Step</a>
 
-  <!-- Search Input -->
   <input class="form-control mb-3" id="searchInput" type="text" placeholder="Search...">
 
-  <!-- Teststeps Table -->
   <table class="table table-bordered table-striped">
     <thead class="table-dark">
     <tr>
@@ -54,7 +53,7 @@
     <tbody id="teststepTable">
     <tr th:each="teststep : ${teststeps}">
       <td th:text="${teststep.id}"></td>
-      <td th:text="${teststep.testcase.title}"></td> <!-- Assuming Testcase has a 'title' field -->
+      <td th:text="${teststep.testcase.title}"></td>
       <td th:text="${teststep.step}"></td>
       <td th:text="${teststep.title}"></td>
       <td th:text="${teststep.description}"></td>
@@ -66,44 +65,7 @@
     </tbody>
   </table>
 </div>
-<!-- Add Teststep Form -->
-<div class="container">
-  <form role="form" th:action="@{/teststeps/add}" th:object="${teststep}" method="post" class="mb-4">
-    <legend>Add New Teststep</legend>
 
-    <!-- Testcase Dropdown -->
-    <div class="mb-3">
-      <label for="testcase" class="form-label">Testcase</label>
-      <select class="form-control" id="testcase" th:field="*{testcase}" required>
-        <option value="">Select a Testcase</option>
-        <option th:each="tc : ${testcases}" th:value="${tc.id}" th:text="${tc.title}"></option>
-      </select>
-    </div>
-
-    <!-- Step Field -->
-    <div class="mb-3">
-      <label for="step" class="form-label">Step</label>
-      <input type="number" class="form-control" id="step" th:field="*{step}" placeholder="Step" required>
-    </div>
-
-    <!-- Title Field -->
-    <div class="mb-3">
-      <label for="title" class="form-label">Title</label>
-      <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="Title" required>
-    </div>
-
-    <!-- Description Field -->
-    <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
-      <input type="text" class="form-control" id="description" th:field="*{description}" placeholder="Description" required>
-    </div>
-
-    <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary">Add Teststep</button>
-  </form>
-</div>
-
-<!-- Scripts for Sorting and Searching -->
 <script>
   document.getElementById("searchInput").addEventListener("keyup", function () {
     let filter = this.value.toLowerCase();
